@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Love Card</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff0f0;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1, h2, h3 {
+            color: #e63946;
+        }
+
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 2px solid #e63946;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .form-group textarea {
+            height: 100px;
+        }
+
+        .btn {
+            background-color: #e63946;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #d62828;
+        }
+
+        .preview-card {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px dashed #e63946;
+            border-radius: 10px;
+            text-align: center;
+            background-color: #fff5f5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .heart {
+            color: #ff4757;
+            font-size: 24px;
+            position: absolute;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Virtual Love Card ❤️</h1>
+    <div class="container">
+        <h2>Create Your Love Message</h2>
+        <form id="loveCardForm">
+            <div class="form-group">
+                <label for="recipientName">Recipient's Name</label>
+                <input type="text" id="recipientName" placeholder="Enter your beloved's name">
+            </div>
+            <div class="form-group">
+                <label for="message">Love Message</label>
+                <textarea id="message" placeholder="Write a sweet message"></textarea>
+            </div>
+            <button type="button" class="btn" onclick="previewCard()">Preview Love Card</button>
+        </form>
+        
+        <div class="preview-card" id="previewCard" style="display: none;">
+            <h3>For My Love</h3>
+            <p><strong>To:</strong> <span id="previewName"></span></p>
+            <p><strong>Message:</strong> <span id="previewMessage"></span></p>
+            <div id="floatingHearts"></div>
+        </div>
+    </div>
+
+    <script>
+        function previewCard() {
+            const name = document.getElementById('recipientName').value;
+            const message = document.getElementById('message').value;
+
+            document.getElementById('previewName').textContent = name;
+            document.getElementById('previewMessage').textContent = message;
+
+            document.getElementById('previewCard').style.display = 'block';
+            createFloatingHearts();
+        }
+
+        function createFloatingHearts() {
+            const heartContainer = document.getElementById('floatingHearts');
+            heartContainer.innerHTML = ''; // Clear previous hearts
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.textContent = '❤️';
+                heart.classList.add('heart');
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDuration = `${Math.random() * 2 + 3}s`;
+                heartContainer.appendChild(heart);
+            }
+        }
+    </script>
+</body>
+</html>
